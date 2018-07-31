@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import D3Tree from './D3Tree';
 import './App.css';
+import * as d3 from 'd3'
+
 const treeData = [
   {
     "name": "34",
@@ -39,16 +41,14 @@ const treeData = [
 ];
 
 class App extends Component{
-
+	constructor(){
+		super();
+	}
+	
 	render() {
 
 		return (
 			<div>
-				{/* <div>
-					<button id="dft" onClick={this.dft}>Depth First</button>
-					<button id="bft" onClick={this.bft}>Breadth First</button>
-					<button id="reset" onClick={this.resetTraversal}>Reset</button>
-      	</div> */}
 					<D3Tree treeData={treeData} />
 			</div>
 		);

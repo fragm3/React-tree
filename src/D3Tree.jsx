@@ -6,68 +6,18 @@ import './App.css';
 class D3Tree extends Component{
 
   componentDidMount(){
-    const mountNode = ReactDOM.findDOMNode(this);
-
-    // Render the tree usng d3 after first component mount
-    renderTree(this.props.treeData, mountNode);
+    this.renderTree(this.props.treeData);
   }
 
   shouldComponentUpdate(nextProps, nextState){
     // Delegate rendering the tree to a d3 function on prop change
-    renderTree(nextProps.treeData, ReactDOM.findDOMNode(this));
+    this.renderTree(nextProps.treeData);
 
     // Do not allow react to render the component on prop change
     return false;
   }
 
-  visitElement = (element,animX) => {
-    // d3.select("#node-"+element.id).classed("visited",true);
-     d3.select("#node-"+element.id)
-       .transition().duration(5).delay(5*animX)
-       .style("fill","red").style("stroke","red");
-   }
-   
-   dft = () => {
-     var stack=[];
-     var animX=0;
-     stack.push(root);
-     while(stack.length!==0){
-       var element = stack.pop();
-       this.visitElement(element,animX);
-       animX=animX+1;
-       if(element.children!==undefined){
-         for(var i=0; i<element.children.length; i++){
-           stack.push(element.children[element.children.length-i-1]);
-         }
-       }
-     }
-   }
-   
-   bft = () => {
-     var queue=[];
-     var animX=0;
-     queue.push(root);
-     while(queue.length!==0){
-       var element = queue.shift();
-       this.visitElement(element,animX);
-       animX= animX+1;
-       if(element.children!==undefined){
-         for(var i=0; i<element.children.length; i++){
-           queue.push(element.children[i]);
-         }
-       }
-     }
-   }
-
-  render() {
-    // Render a blank svg node
-    return (
-        <svg></svg>
-    );
-  }
-};
-
-var renderTree = function(treeData, svgDomNode) {
+  renderTree = (treeData) => {
     var margin = {top: 100, right: 220, bottom: 20, left: 450},
     width = 960 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;  
@@ -77,7 +27,7 @@ var renderTree = function(treeData, svgDomNode) {
       root;
 
     // Cleans up the SVG on re-render
-    d3.select(svgDomNode).selectAll("*").remove();
+    d3.select(this.node).selectAll("*").remove();
 
     var tree = d3.layout.tree()
       .size([height, width]);
@@ -86,7 +36,7 @@ var renderTree = function(treeData, svgDomNode) {
       .projection(function(d) { return [d.x, d.y]; })
     
 
-    var svg = d3.select(svgDomNode)
+    var svg = d3.select(this.node)
       .attr("width", width + margin.right + margin.left)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -150,5 +100,70 @@ var renderTree = function(treeData, svgDomNode) {
       update(d);
     }
 }
+
+  visitElement = (element,animX) => {
+    d3.select("#node-"+element.id)
+      .transition().duration(5).delay(5*animX)
+      .style("fill","red").style("stroke","red");
+  }
+  
+  dft = () => {
+    var stack=[];
+    var animX=0;
+    stack.push(root);
+    while(stack.length!==0){
+      var element = stack.pop();
+      this.visitElement(element,animX);
+      animX=animX+1;
+      if(element.children!==undefined){
+        for(var i=0; i<element.children.length; i++){
+          stack.push(element.children[element.children.length-i-1]);
+        }
+      }
+    }
+  }
+  
+  bft = () => {
+    var queue=[];
+    var animX=0;
+    queue.push(root);
+    while(queue.length!==0){
+      var element = queue.shift();
+      this.visitElement(element,animX);
+      animX= animX+1;
+      if(element.children!==undefined){
+        for(var i=0; i<element.children.length; i++){
+          queue.push(element.children[i]);
+        }
+      }
+    }
+  }
+
+  resetTraversal = (root) => {
+    d3.selectAll(".node")
+      .transition().duration(5)
+      .style("fill","#fff")
+      .style("stroke","steelblue");
+  
+  }
+
+
+  console = () => {
+    console.log("TEST")
+  }
+    // Render a blank svg node
+    render() {
+      return (
+        <React.Fragment>
+          <div>
+            <button id="dft" onClick={this.dft}>Depth First</button>
+            <button id="bft" onClick={this.bft}>Breadth First</button>
+            <button id="reset" onClick={this.resetTraversal}>Reset</button>
+          </div>
+          <svg ref={node => this.node = node}></svg>
+        </React.Fragment>
+    )
+    }
+  }
 
 export default D3Tree;

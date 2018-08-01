@@ -52,9 +52,7 @@ class App extends Component{
 					<D3Tree treeData={treeData} />
 			</div>
 		);
-		
 	}
-
 };
 
 export default App;

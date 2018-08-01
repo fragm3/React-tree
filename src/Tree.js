@@ -17,28 +17,34 @@ export class BinaryTree {
     }
 
     inorder = (node) => {
+        var arr = [];
         if(node !== null) {
-            debugger;
             this.inorder(node.left);
-            console.log(node.data);
+            arr.push(node.data);
+            //console.log(node.data);
             this.inorder(node.right);
         }
     }
 
     preorder = (node) => {
+        var arr = [];
         if(node != null) {
-        console.log(node.data);
+        //console.log(node.data);
+        arr.push(node.data);
         this.preorder(node.left);
         this.preorder(node.right);
         }
     }
 
     postorder = (node) => {
+        var arr = [];
         if(node != null) {
             this.postorder(node.left);
             this.postorder(node.right);
-            console.log(node.data);
+            arr.push(node.data);
+            //console.log(node.data);
         }
+        console.log(arr)
     }
 
     bft = (node) => {

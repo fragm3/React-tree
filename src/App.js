@@ -34,11 +34,24 @@ const treeData = [
       },
       {
         "name": "92",
-        "parent": "34",
+				"parent": "34",
+				"children": [
+					{
+						"name": "16",
+						"parent": "04",
+					},
+					{
+						"name": "09",
+						"parent": "04",
+					}
+				]
       }
     ]
   }
 ];
+
+//var treeData = [{children:[{children:[{},{},{}]},{children:[{children:[{}]}]},{},{children:[{},{children:[{},{}]}]}]}];
+
 
 class App extends Component{
 	constructor(){

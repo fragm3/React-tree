@@ -45,48 +45,42 @@ class D3Tree extends Component{
     root = treeData[0];
       
     update(root);
-
-    function update(source) {
-
+    
+    function update(root) {
+    
       // Compute the new tree layout.
-      var nodes = tree.nodes(root).reverse(),
+      var nodes = tree.nodes(root),
         links = tree.links(nodes);
     
       // Normalize for fixed-depth.
-      nodes.forEach(function(d) { d.y = d.depth * 100; });
+      nodes.forEach(function(d) { d.y = d.depth *100; });
     
-      // Declare the nodes…
-      var node = svg.selectAll("g.node")
-        .data(nodes, function(d) { return d.id || (d.id = ++i); });
-    
-      // Enter the nodes.
-      var nodeEnter = node.enter().append("g")
+      // Declare and append the nodes
+      var nodeWrapper = svg.append("g").attr("id","nodes").selectAll("g.node")
+        .data(nodes, function(d) {return d.id || (d.id = i++); })
+        .enter().append("circle")
         .attr("class", "node")
-        .attr("transform", function(d) { 
-          return "translate(" + d.x + "," + d.y + ")"; });
+        //Root is the highest ID
+        // .attr("id",function(d){return "node-"+d.id})
+        .attr("id", function(d){return "node-" + d.id})
+        .attr("cx",function(d){return d.x;})
+        .attr("cy",function(d){return d.y;})
+        .attr("r", 10);
     
-      nodeEnter.append("circle")
-        .attr("r", 15)
-        .style("fill", "#fff")
-        .style("stroke", "#929292");    
-    
-      nodeEnter.append("text")
-        .attr("y", "middle")
-        .attr("dy", "4")
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d.name; })
-        .style("fill-opacity", 1);
-    
-      // Declare the links…
-      var link = svg.selectAll("path.link")
-        .data(links, function(d) { return d.target.id; });
-    
-      // Enter the links.
-      link.enter().insert("path", "g")
+      // Declare and append the links
+      var linkWrapper = svg.append("g").attr("id","links").selectAll("path.link")
+        .data(links, function(d) { return d.target.id; })
+        .enter()
+        .append("line", "g")
         .attr("class", "link")
-        .attr("d", diagonal)
+        .attr("id",function(d){
+          return d.source.id +"-to-"+ d.target.id;
+        })
+        .attr('x1', function(d){return d.source.x;})
+        .attr('x2',function(d){return d.target.x;})
+        .attr('y1',function(d){return d.source.y;})
+        .attr('y2',function(d){return d.target.y;});
     }
-    
 
     // Toggle children on click.
     function click(d) {
@@ -100,23 +94,23 @@ class D3Tree extends Component{
       update(d);
     }
 }
+  visitElement = (element) => {
+  d3.select(".node"+element.id)
+  .transition().duration(50).delay(50)
+  .style("fill","red").style("stroke","red");
+}
 
-  visitElement = (element,animX) => {
-    d3.select("#node-"+element.id)
-      .transition().duration(5).delay(5*animX)
-      .style("fill","red").style("stroke","red");
-  }
-  
   dft = () => {
     var stack=[];
     var animX=0;
     stack.push(root);
     while(stack.length!==0){
       var element = stack.pop();
-      this.visitElement(element,animX);
+      this.visitElement(element);
       animX=animX+1;
       if(element.children!==undefined){
         for(var i=0; i<element.children.length; i++){
+          console.log(element.children[i], "Element Children")
           stack.push(element.children[element.children.length-i-1]);
         }
       }
@@ -127,12 +121,14 @@ class D3Tree extends Component{
     var queue=[];
     var animX=0;
     queue.push(root);
+    console.log(root, "root")
     while(queue.length!==0){
       var element = queue.shift();
-      this.visitElement(element,animX);
+      this.visitElement(element);
       animX= animX+1;
       if(element.children!==undefined){
         for(var i=0; i<element.children.length; i++){
+          console.log(element.children[i], "Element children");
           queue.push(element.children[i]);
         }
       }
@@ -144,9 +140,7 @@ class D3Tree extends Component{
       .transition().duration(5)
       .style("fill","#fff")
       .style("stroke","steelblue");
-  
   }
-
 
   console = () => {
     console.log("TEST")

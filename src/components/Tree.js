@@ -9,6 +9,7 @@ export class Node {
 export class BinaryTree {
     constructor(root) {
         this.root = root;
+        this.list = [];
     }
 
     // returns root of the tree
@@ -17,34 +18,36 @@ export class BinaryTree {
     }
 
     inorder = (node) => {
-        var arr = [];
         if(node !== null) {
             this.inorder(node.left);
-            arr.push(node.data);
-            //console.log(node.data);
+            this.list.push(node.data);
             this.inorder(node.right);
         }
     }
 
     preorder = (node) => {
-        var arr = [];
         if(node != null) {
-        //console.log(node.data);
-        arr.push(node.data);
-        this.preorder(node.left);
-        this.preorder(node.right);
+            this.list.push(node.data);
+            this.preorder(node.left);
+            
+            this.preorder(node.right);
         }
     }
 
     postorder = (node) => {
-        var arr = [];
         if(node != null) {
             this.postorder(node.left);
             this.postorder(node.right);
-            arr.push(node.data);
-            //console.log(node.data);
+            this.list.push(node.data);
         }
-        console.log(arr)
+    }
+
+    resetList = () => {
+        this.list = [];
+    }
+
+    getList = () => {
+        return this.list;
     }
 
     bft = (node) => {
@@ -53,6 +56,7 @@ export class BinaryTree {
             arr.push(node);
             while(arr.length != 0){
                 var element = arr.shift();
+                this.list.push(element.data);
                 console.log(element.data);
                 if(element.left != null)
                     arr.push(element.left);

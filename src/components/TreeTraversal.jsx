@@ -1,76 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 import Menu from './Menu';
 import { Transition } from 'react-move';
-
-class Node {
-    constructor(data) {
-        this.data = data;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-class BinaryTree {
-    constructor(root) {
-        this.root = root;
-        this.list = [];
-    }
-
-    // returns root of the tree
-    getRootNode = () => {
-        return this.root;
-    }
-
-    inorder = (node) => {
-        if(node !== null) {
-            this.inorder(node.left);
-            this.list.push(node.data);
-            this.inorder(node.right);
-        }
-    }
-
-    preorder = (node) => {
-        if(node != null) {
-            this.list.push(node.data);
-            this.preorder(node.left);
-            
-            this.preorder(node.right);
-        }
-    }
-
-    postorder = (node) => {
-        if(node != null) {
-            this.postorder(node.left);
-            this.postorder(node.right);
-            this.list.push(node.data);
-        }
-    }
-
-    resetList = () => {
-        this.list = [];
-    }
-
-    getList = () => {
-        return this.list;
-    }
-
-    bft = (node) => {
-        if(node != null) {
-            var arr = [];
-            arr.push(node);
-            while(arr.length != 0){
-                var element = arr.shift();
-                this.list.push(element.data);
-                console.log(element.data);
-                if(element.left != null)
-                    arr.push(element.left);
-                if(element.right != null)
-                    arr.push(element.right);    
-            }
-        }
-    }
-}
+import {Node, BinaryTree} from './Tree'
 
 var node = new Node("34");
 node.left = new Node("23");
@@ -82,7 +14,6 @@ node.right = new Node("92");
 var BT = new BinaryTree(node);
 
 var root = BT.getRootNode();
-
 
 export default class TreeTraversal extends Component{
 	constructor(){

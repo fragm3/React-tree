@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3'
 import ReactDOM from 'react-dom';
-import './App.css';
+import '../App.css';
 import TreeTraversal from './TreeTraversal'
 
 class D3Tree extends Component{
@@ -59,12 +59,13 @@ class D3Tree extends Component{
       nodes.forEach(function(d) { d.y = d.depth * 100; });
     
       // Declare the nodes…
-      var node = svg.selectAll("g.node")
-        .data(nodes, function(d) { return d.id || (d.id = ++i); });
+      var node = svg.append("g").attr("id","nodes").selectAll("g.node")
+        .data(nodes, function(d) { return d.id || (d.id = ++i); })
     
       // Enter the nodes.
       var nodeEnter = node.enter().append("g")
         .attr("class", "node")
+        .attr("id",function(d){return "node-"+d.id})
         .attr("transform", function(d) { 
           return "translate(" + d.x + "," + d.y + ")"; });
     
@@ -78,14 +79,18 @@ class D3Tree extends Component{
         .attr("dy", "4")
         .attr("text-anchor", "middle")
         .text(function(d) { return d.name; })
-        .style("fill-opacity", 1);
+        .style("fill-opacity", 1); 
     
       // Declare the links…
       var link = svg.selectAll("path.link")
-        .data(links, function(d) { return d.target.id; });
+        .data(links, function(d) { return d.target.id; })
+        
     
       // Enter the links.
       link.enter().insert("path", "g")
+        .attr("id",function(d){
+          return d.source.id +"->"+ d.target.id;
+        })
         .attr("class", "link")
         .attr("d", diagonal)
     }

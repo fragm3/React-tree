@@ -141,7 +141,7 @@ export default class TreeTraversal extends Component{
         let renderElement = null;
         if(this.state.list){
         renderElement = (
-            <div>
+            <div style={{marginTop: '20px'}}>
                 <button onClick={this.reset}>Reset</button>
                 <Transition
                    data={list}
@@ -151,14 +151,14 @@ export default class TreeTraversal extends Component{
                    opacity: 1
                    })}
                    enter={d => ({
-                       translate: 1,
+                       translate: 10,
                        opacity: 0
                    })}
                    leave={d => ({
                        translate: -1,
                        opacity: 0
                    })}
-                   stagger={200}
+                   stagger={400}
                 >
                 {dataArray => (
                     <div className = "traverse-number-container">
@@ -166,7 +166,10 @@ export default class TreeTraversal extends Component{
                     <li
                       className="traverse-number"
                       key={data.key}
-                      style={{opacity: data.state.opacity}}
+                      style={{
+                          opacity: data.state.opacity,
+                          transform: `translate(${10 * data.state.translate}px)`
+                        }}
                     >
                       {data.key}
                     </li>

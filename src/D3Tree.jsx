@@ -2,11 +2,29 @@ import React, { Component } from 'react';
 import * as d3 from 'd3'
 import ReactDOM from 'react-dom';
 import './App.css';
+import {BinaryTree, Node} from './Tree.js';
+
+var node = new Node("34");
+node.left = new Node("23");
+node.left.left = new Node("12");
+node.left.right = new Node("04");
+node.left.right.left = new Node("16");
+node.left.right.right = new Node("09");
+node.right = new Node("92");
+debugger;
+var BT = new BinaryTree(node);
+
+var root = BT.getRootNode();
 
 class D3Tree extends Component{
 
+  constructor(){
+    super();
+
+  }
   componentDidMount(){
     this.renderTree(this.props.treeData);
+
   }
 
   shouldComponentUpdate(nextProps, nextState){
@@ -106,59 +124,40 @@ class D3Tree extends Component{
       .transition().duration(5).delay(5*animX)
       .style("fill","red").style("stroke","red");
   }
-  
-  dft = () => {
-    var stack=[];
-    var animX=0;
-    stack.push(root);
-    while(stack.length!==0){
-      var element = stack.pop();
-      this.visitElement(element,animX);
-      animX=animX+1;
-      if(element.children!==undefined){
-        for(var i=0; i<element.children.length; i++){
-          stack.push(element.children[element.children.length-i-1]);
-        }
-      }
-    }
-  }
-  
-  bft = () => {
-    var queue=[];
-    var animX=0;
-    queue.push(root);
-    while(queue.length!==0){
-      var element = queue.shift();
-      this.visitElement(element,animX);
-      animX= animX+1;
-      if(element.children!==undefined){
-        for(var i=0; i<element.children.length; i++){
-          queue.push(element.children[i]);
-        }
-      }
-    }
+
+  bft() {
+    // prints 34 23 92 12 04 16 09
+    alert("Breadth first traversal");
+    BT.bft(root);
   }
 
-  resetTraversal = (root) => {
-    d3.selectAll(".node")
-      .transition().duration(5)
-      .style("fill","#fff")
-      .style("stroke","steelblue");
-  
+  preorder() {
+    // prints 34 23 12 04 16 09 92
+    alert("Preorder traversal");
+    BT.preorder(root);
   }
 
-
-  console = () => {
-    console.log("TEST")
+  inorder() {
+    // prints 12 23 16 04 09 34 92
+    alert("inorder traversal");
+    BT.inorder(root);
   }
-    // Render a blank svg node
+
+  postOrder() {
+    // prints 12 16 09 04 23 92 34
+    alert("postorder traversal");
+    BT.postorder(root);
+  }
+
     render() {
+
       return (
         <React.Fragment>
           <div>
-            <button id="dft" onClick={this.dft}>Depth First</button>
-            <button id="bft" onClick={this.bft}>Breadth First</button>
-            <button id="reset" onClick={this.resetTraversal}>Reset</button>
+            <button id="dft" onClick={this.bft}>Breadth First</button>
+            <button id="bft" onClick={this.preorder}>Preorder Traversal</button>
+            <button id="bft" onClick={this.inorder}>Inorder Traversal</button>
+            <button id="bft" onClick={this.postOrder}>PostOrder Traversal</button>
           </div>
           <svg ref={node => this.node = node}></svg>
         </React.Fragment>

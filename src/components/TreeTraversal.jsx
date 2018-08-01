@@ -25,8 +25,6 @@ export default class TreeTraversal extends Component{
         
     }
 
-    array = [];
-
     // prints 34 23 92 12 04 16 09
     bft = ()  => {
         BT.resetList();

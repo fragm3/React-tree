@@ -94,19 +94,6 @@ class D3Tree extends Component{
         .attr("class", "link")
         .attr("d", diagonal)
     }
-    
-
-    // Toggle children on click.
-    function click(d) {
-      if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
-      update(d);
-    }
 }
 
   visitElement = (element,animX) => {
@@ -122,7 +109,7 @@ class D3Tree extends Component{
           <svg ref={node => this.node = node}></svg>
           <TreeTraversal />
         </div>
-    )
+      )
     }
   }
 

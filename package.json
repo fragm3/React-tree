@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "d3": "^3.5.5",
+    "raf": "^3.4.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-move": "^1.1.8",
@@ -17,7 +18,14 @@
     "eject": "react-scripts eject"
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
     "setupFiles": [
+      "raf/polyfill",
       "./src/setupTests.js"
     ]
   },
@@ -29,6 +37,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^21.2.1"
   }
 }

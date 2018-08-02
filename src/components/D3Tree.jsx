@@ -45,14 +45,15 @@ class D3Tree extends Component{
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    root = treeData[0];
+    if(treeData)  
+      root = treeData[0];
       
     update(root);
 
     function update(source) {
 
       // Compute the new tree layout.
-      var nodes = tree.nodes(root).reverse(),
+      var nodes = tree.nodes(root),
         links = tree.links(nodes);
     
       // Normalize for fixed-depth.
@@ -89,19 +90,12 @@ class D3Tree extends Component{
       // Enter the links.
       link.enter().insert("path", "g")
         .attr("id",function(d){
-          return d.source.id +"->"+ d.target.id;
+          return d.source.id +"-to-"+ d.target.id;
         })
         .attr("class", "link")
         .attr("d", diagonal)
     }
 }
-
-  visitElement = (element,animX) => {
-    d3.select("#node-"+element.id)
-      .transition().duration(5).delay(5*animX)
-      .style("fill","red").style("stroke","red");
-  }
-
     render() {
 
       return (

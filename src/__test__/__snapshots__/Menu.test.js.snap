@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Menu /> Menu matches snapshot 1`] = `
+<div
+  className="menu-container"
+>
+  <div>
+    <button
+      className="menu-button"
+      onClick={[Function]}
+    >
+      Select traversal
+      <span
+        className="caret"
+      />
+    </button>
+  </div>
+</div>
+`;

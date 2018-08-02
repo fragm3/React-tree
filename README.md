@@ -26,9 +26,11 @@ tree/
     index.html
   src/
     __test__
-        D3Tree.test.jsx
         Menu.test.jsx
         TreeTravesal.test.jsx
+        __snapshots__
+        Menu.test.js.snap
+        TreeTravesal.test.snap
     components/
         D3Tree.jsx
         Menu.jsx
@@ -45,9 +47,10 @@ tree/
 * `src/App.js` is the component which contains the whole app.
 * `src/components/` any new component can be added in this folder, given that the file is reused or should be unique in some way.
 * `src/__tests__/` new tests related to all the components can be created in this folder, this project follows a `jest` testing suite.
-* `src/App.test.js/` is the entry point for all tests
-* `.babelrc` is used by babel for transpiling
-* `src/setupTests.js` is enzyme setup configuration
+* `src/__tests__/__snapshots` snapshots of component created for jest testing.
+* `src/App.test.js/` is the entry point for all tests.
+* `.babelrc` is used by babel for transpiling.
+* `src/setupTests.js` is enzyme setup configuration.
 
 ### Installation
 

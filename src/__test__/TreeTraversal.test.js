@@ -1,11 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TreeTraversal from '../components/TreeTraversal.jsx';
+import renderer from 'react-test-renderer'
 
 describe('<TreeTraversal />', () => {
   const wrapper = shallow(<TreeTraversal />);
   it('renders TreeTraversal without crashing', () => {
     wrapper
+  })
+  it('TreeTraversal matches snapshot', () => {
+    const tree = renderer.create(<TreeTraversal/>).toJSON()
+    expect(tree).toMatchSnapshot()
   })
   it('playing is set false', ()=> {
     expect(wrapper.state('isPlaying')).toEqual(false);

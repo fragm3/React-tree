@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Menu from '../components/Menu.jsx';
+import renderer from 'react-test-renderer'
 
 describe('<Menu />', () => {
   const wrapper = shallow(<Menu />)
@@ -8,6 +9,10 @@ describe('<Menu />', () => {
   
   it('renders Menu without crashing', () => {
     wrapper;
+  })
+  it('Menu matches snapshot', () => {
+    const tree = renderer.create(<Menu/>).toJSON()
+    expect(tree).toMatchSnapshot()
   })
   it('dont show menu on start', () => {
     expect(wrapper.state('showMenu')).toEqual(false);

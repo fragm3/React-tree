@@ -29,13 +29,15 @@ tree/
         Menu.test.jsx
         TreeTravesal.test.jsx
         __snapshots__
-        Menu.test.js.snap
-        TreeTravesal.test.snap
+            Menu.test.js.snap
+            TreeTravesal.test.snap
     components/
         D3Tree.jsx
         Menu.jsx
         Tree.js
         TreeTravesal.jsx
+    utils/
+        tree-data.jsx
     App.js
     App.test.js
     index.css
@@ -46,6 +48,7 @@ tree/
 * `src/index.js` is the JavaScript entry point.
 * `src/App.js` is the component which contains the whole app.
 * `src/components/` any new component can be added in this folder, given that the file is reused or should be unique in some way.
+* `src/utils/` Constant data
 * `src/__tests__/` new tests related to all the components can be created in this folder, this project follows a `jest` testing suite.
 * `src/__tests__/__snapshots` snapshots of component created for jest testing.
 * `src/App.test.js/` is the entry point for all tests.

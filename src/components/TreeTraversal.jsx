@@ -73,34 +73,34 @@ export default class TreeTraversal extends Component{
             <div style={{marginTop: '20px'}}>
                 <button onClick={this.reset}>Reset</button>
                 <Transition
-                   data={list}
-                   getKey={d => d}
-                   update={d => ({
-                   translate: 0,
-                   opacity: 1
-                   })}
-                   enter={d => ({
-                       translate: 10,
-                       opacity: 0
-                   })}
-                   leave={d => ({
-                       translate: -1,
-                       opacity: 0
-                   })}
-                   stagger={400}
+                    data={list}
+                    getKey={d => d}
+                    update={d => ({
+                    translate: 0,
+                    opacity: 1
+                    })}
+                    enter={d => ({
+                        translate: 10,
+                        opacity: 0
+                    })}
+                    leave={d => ({
+                        translate: -1,
+                        opacity: 0
+                    })}
+                    stagger={400}
                 >
                 {dataArray => (
                     <div className = "traverse-number-container">
                     {dataArray.map(data => (
                     <li
-                      className="traverse-number"
-                      key={data.key}
-                      style={{
-                          opacity: data.state.opacity,
-                          transform: `translate(${10 * data.state.translate}px)`
+                        className="traverse-number"
+                        key={data.key}
+                        style={{
+                        opacity: data.state.opacity,
+                        transform: `translate(${10 * data.state.translate}px)`
                         }}
                     >
-                      {data.key}
+                        {data.key}
                     </li>
                     ))
                     }
@@ -114,10 +114,10 @@ export default class TreeTraversal extends Component{
 		return (
             <div className = "tree-traversal">
                 <Menu
-                  bft={this.bft} 
-                  preorder={this.preOrder}
-                  inorder={this.inOrder}
-                  postOrder={this.postOrder}
+                    bft={this.bft} 
+                    preorder={this.preOrder}
+                    inorder={this.inOrder}
+                    postOrder={this.postOrder}
                 />
                 {renderElement}
             </div>    

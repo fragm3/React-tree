@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as d3 from 'd3'
-import ReactDOM from 'react-dom';
 import '../App.css';
 import TreeTraversal from './TreeTraversal'
 
 class D3Tree extends Component{
-  constructor(){
-    super();
-  }
   componentDidMount(){
     this.renderTree(this.props.treeData);
   }
@@ -25,9 +22,7 @@ class D3Tree extends Component{
     width = 660,
     height = 500 - margin.top - margin.bottom;  
       
-    var i = 0,
-      duration = 750,
-      root;
+    var i = 0, root;
 
     // Cleans up the SVG on re-render
     d3.select(this.node).selectAll("*").remove();
@@ -106,5 +101,9 @@ class D3Tree extends Component{
       )
     }
   }
+
+D3Tree.propTypes = {
+  treeData : PropTypes.array,
+}
 
 export default D3Tree;

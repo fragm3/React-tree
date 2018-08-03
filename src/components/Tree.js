@@ -54,7 +54,7 @@ export class BinaryTree {
         if(node != null) {
             var arr = [];
             arr.push(node);
-            while(arr.length != 0){
+            while(arr.length !== 0){
                 var element = arr.shift();
                 this.list.push(element.data);
                 console.log(element.data);

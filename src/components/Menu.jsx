@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class Menu extends Component {
+class Menu extends Component {
     constructor() {
         super();
         this.state = {
@@ -23,22 +24,22 @@ export default class Menu extends Component {
 
     selectBFT = () => {
         this.props.bft();
-        this.setState({menuText: "Breadth First Traversal"});
+        this.setState({menuText: 'Breadth First Traversal'});
     }
 
     selectinOrderT = () => {
-        this.props.inorder();
-        this.setState({menuText: "Inorder Traversal"});
+        this.props.inOrder();
+        this.setState({menuText: 'Inorder Traversal'});
     }
 
     selectpreOderT = () => {
-        this.props.bft();
-        this.setState({menuText: "Preorder Traversal"});
+        this.props.preOrder();
+        this.setState({menuText: 'Preorder Traversal'});
     }
 
     selectpostOrderT = () => {
         this.props.postOrder();
-        this.setState({menuText: "Postorder Traversal"});
+        this.setState({menuText: 'Postorder Traversal'});
     }
 
     render() {
@@ -72,3 +73,12 @@ export default class Menu extends Component {
         );
     }
 }
+
+Menu.propTypes = {
+    bft: PropTypes.func,
+    postOrder: PropTypes.func,
+    inOrder: PropTypes.func,
+    preOrder: PropTypes.func,
+};
+
+export default Menu;

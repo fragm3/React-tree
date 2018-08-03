@@ -115,8 +115,8 @@ export default class TreeTraversal extends Component{
             <div className = "tree-traversal">
                 <Menu
                     bft={this.bft} 
-                    preorder={this.preOrder}
-                    inorder={this.inOrder}
+                    preOrder={this.preOrder}
+                    inOrder={this.inOrder}
                     postOrder={this.postOrder}
                 />
                 {renderElement}

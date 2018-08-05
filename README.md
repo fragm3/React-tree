@@ -57,7 +57,7 @@ tree/
 
 ### Installation
 
-2. Running react app
+Running react app
 ```sh
 $ git clone https://github.com/fragm3/React-tree
 $ cd tree
